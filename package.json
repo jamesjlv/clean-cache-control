@@ -5,8 +5,10 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "^17.0.8",
-    "typescript": "^4.5.4",
-    "test": "jest --no-cache --watchAll"
+    "babel-preset-es2015": "^6.24.1",
+    "react": "^17.0.2",
+    "test": "jest --no-cache --watchAll",
+    "typescript": "^4.5.4"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
