@@ -2,7 +2,7 @@ module.exports = {
   roots: ["<rootDir>/src"],
   testEnvironment: "node",
   transform: {
-    ".+\\.ts$": ["babel-jest"],
+    ".+\\.ts$": ["ts-jest"],
   },
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
