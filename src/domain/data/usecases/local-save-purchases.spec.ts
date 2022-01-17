@@ -2,17 +2,19 @@ export class LocalSavePurchases {
   constructor(private readonly cacheStore: CacheStore) {}
 
   async save(): Promise<void> {
-    this.cacheStore.delete();
+    this.cacheStore.delete("purchases");
   }
 }
 export interface CacheStore {
-  delete: () => void;
+  delete: (key: string) => void;
 }
 export class CacheStoreSpy implements CacheStore {
   deleteCallsCount = 0;
+  key = "";
 
-  delete(): void {
+  delete(key: string): void {
     this.deleteCallsCount++;
+    this.key = key;
   }
 }
 
@@ -30,16 +32,18 @@ const makeSut = (): SutTypes => {
 describe("LocalSavePurchases", () => {
   test("Should not delete cache on sut.init", () => {
     const { cacheStore } = makeSut();
-
-    // This opetarion should not be called if the component starts
     expect(cacheStore.deleteCallsCount).toBe(0);
   });
 
   test("Should delete old cache on sut.save", async () => {
     const { sut, cacheStore } = makeSut();
-
     await sut.save();
-    // This opetarion should not be called if the component starts
     expect(cacheStore.deleteCallsCount).toBe(1);
+  });
+
+  test("Should call delete with correct key", async () => {
+    const { sut, cacheStore } = makeSut();
+    await sut.save();
+    expect(cacheStore.key).toBe("purchases");
   });
 });
