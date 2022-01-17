@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "jest --no-cache --watchAll"
+  },
   "dependencies": {
     "@types/node": "^17.0.8",
     "babel-preset-es2015": "^6.24.1",
     "faker": "4.1.0",
     "react": "^17.0.2",
-    "test": "jest --no-cache --watchAll",
     "typescript": "^4.5.4"
   },
   "devDependencies": {
