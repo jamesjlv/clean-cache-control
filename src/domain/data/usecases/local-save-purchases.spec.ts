@@ -16,18 +16,28 @@ export class CacheStoreSpy implements CacheStore {
   }
 }
 
+type SutTypes = {
+  sut: LocalSavePurchases;
+  cacheStore: CacheStoreSpy;
+};
+
+const makeSut = (): SutTypes => {
+  const cacheStore = new CacheStoreSpy();
+  const sut = new LocalSavePurchases(cacheStore);
+  return { cacheStore, sut };
+};
+
 describe("LocalSavePurchases", () => {
   test("Should not delete cache on sut.init", () => {
-    const cacheStore = new CacheStoreSpy();
-    new LocalSavePurchases(cacheStore);
+    const { cacheStore } = makeSut();
 
     // This opetarion should not be called if the component starts
     expect(cacheStore.deleteCallsCount).toBe(0);
   });
 
   test("Should delete old cache on sut.save", async () => {
-    const cacheStore = new CacheStoreSpy();
-    const sut = new LocalSavePurchases(cacheStore);
+    const { sut, cacheStore } = makeSut();
+
     await sut.save();
     // This opetarion should not be called if the component starts
     expect(cacheStore.deleteCallsCount).toBe(1);
